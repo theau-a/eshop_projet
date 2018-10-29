@@ -20,7 +20,7 @@
             $nom_photo = str_replace(array('é','è','à','ç','ù'), 'x', $nom_photo);
 
             // Enregistrons le chemin de notre fichier
-            $chemin_photo = RACINE . 'assets/uploads/admin/' . $nom_photo;
+            $chemin_photo = RACINE . '/assets/uploads/admin/' . $nom_photo;
 
             $taille_max = 2*1048576; # On définit ici la taille maximale autorisée (2Mo)
 
