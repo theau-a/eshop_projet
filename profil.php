@@ -18,7 +18,23 @@
         $info[$key] = htmlspecialchars($value); # nous vérifions que les informations à afficher ne comporte pas d'injections et ne perturberont pas notre service
     }
 
-    // debug($info);
+    if(isset($_GET['m']) && !empty($_GET['m']))
+    {
+        switch($_GET['m'])
+        {
+            case "fail":
+            $msg .= "<div class='alert alert-danger'>Une erreur est survenue, veuillez réessayer.</div>";
+            break;
+            case "update":
+            $msg .= "<div class='alert alert-success'>le compte utilisateur a bien été mis a jour.</div>";
+            break;
+            default:
+            $msg .= "<div class='alert alert-warning'>A pas compris !</div>";
+            break;
+        }
+    }
+    debug($info);
+    debug($_POST);
 
 ?>
 
@@ -42,8 +58,8 @@
                 <li class="list-group-item">Ville: <?= $info['ville'] ?></li>
             </ul>
             <div class="card-body">
-                <a href="#" class="card-link">Action 1</a>
-                <a href="#" class="card-link">Action 2</a>
+                <a href="modif_user.php" class="card-link">modifier</a>
+                <a href="#" class="card-link">Supprimer compte</a>
             </div>
         </div>
     </div>
