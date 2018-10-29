@@ -5,7 +5,7 @@
     $seo_description = "Rejoignez le club des meilleures affaires en ligne: jusqu'à -80%";
     
     require_once("inc/header.php");
-    debug($_POST); 
+    // debug($_POST); 
     foreach($_SESSION['user'] as $key => $value)
     {
         $info[$key] = htmlspecialchars($value); # nous vérifions que les informations à afficher ne comporte pas d'injections et ne perturberont pas notre service
@@ -26,14 +26,14 @@
             break;
         }
     }
-    debug($info);
+    // debug($info);
     if(empty($msg))
     {
         // check si le pseudo est dispo
         if($_POST) # Je suis en train de modifier un produit
         {
-            $result = $pdo->prepare("UPDATE membre SET pseudo=:pseudo, mdp=:m   dp, prenom=:prenom, nom=:nom, email=:email, adresse=:adresse, code_postal=:code_postal, ville=:ville, civilite=:civilite WHERE id_membre = :id_membre");
-            
+            $result = $pdo->prepare("UPDATE membre SET pseudo=:pseudo, mdp=:mdp, prenom=:prenom, nom=:nom, email=:email, adresse=:adresse, code_postal=:code_postal, ville=:ville, civilite=:civilite WHERE id_membre = :id_membre");
+            $password_hash = password_hash($_POST['password'], PASSWORD_BCRYPT); 
             
             $result->bindValue(':pseudo', $_POST['pseudo'], PDO::PARAM_STR);
             $result->bindValue(':mdp', $password_hash, PDO::PARAM_STR);
@@ -49,17 +49,23 @@
             if($result->execute())
             {
                 // $msg .= "<div class='alert alert-success'>Vous êtes bien enregistré.</div>";
-                $req = $pdo->query('SELECT * FROM membre WHERE id_membre = :id_membre');
-                foreach ($req as $key => $value) {
-                    
-                    header("location:profil.php?m=update");
-                }
-            
+                // $req = $pdo->query('SELECT * FROM membre WHERE id_membre = :id_membre');
+                $_SESSION['user']['pseudo'] = $_POST['pseudo'];
+                $_SESSION['user']['nom'] = $_POST['nom'];
+                $_SESSION['user']['prenom'] = $_POST['prenom'];
+                $_SESSION['user']['email'] = $_POST['email'];
+                $_SESSION['user']['civilite'] = $_POST['civilite'];
+                $_SESSION['user']['ville'] = $_POST['ville'];
+                $_SESSION['user']['adresse'] = $_POST['adresse'];
+                $_SESSION['user']['adresse'] = $_POST['adresse'];
+                $_SESSION['user']['code_postal'] = $_POST['code_postal'];
+                    header("location:profil.php");
+                           
                 
                 $msg .= "<div class='alert alert-success'>Le membre est bien modifié!</div>";
             }
         }
-        debug($info);
+        // debug($info);
         
 
     }

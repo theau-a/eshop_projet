@@ -70,8 +70,16 @@
     for($i= 0; $i < $result->columnCount(); $i++)
     {
         $colonne = $result->getColumnMeta($i);
-        $contenu .= "<th scope='col'>" . ucfirst(str_replace('_', ' ', $colonne['name'])) . "</th>";
+        if($colonne["name"] == "mdp")
+        {
+            continue;
+        }
+        else
+        {
+            $contenu .= "<th scope='col'>" . ucfirst(str_replace('_', ' ', $colonne['name'])) . "</th>";
+        }
         
+    
     }
     
     $contenu .= "<th colspan='2'>Actions</th>";
