@@ -129,3 +129,13 @@ function prixTotal()
     
     return $total;
 }
+
+function choosePhoto(){
+    echo "<form>";
+    echo "<div class='form-group'>";
+    echo  "<label for='change'>Example file input</label>";
+      echo "<input type='file' class='form-control-file' id='change' name='change'>";
+    echo "</div>";
+    echo "<input type='submit' class='btn btn-danger' value='changer la photo'>";
+    echo "</form>";
+}
