@@ -1,7 +1,7 @@
 <?php
 
     # Règles SEO
-    $page = "Inscription";
+    $page = "nouvelle inscription";
     $seo_description = "Rejoignez le club des meilleures affaires en ligne: jusqu'à -80%";
     
     require_once("inc/header.php");
