@@ -86,7 +86,7 @@
         {
             if($key != "mdp")
             {
-                
+                // je sais pas
                 $contenu .= "<td>" . $value . "</td>";  
             
             }
