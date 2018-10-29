@@ -151,7 +151,7 @@
                 <label for="ville">Ville</label>
                 <input type="text" class="form-control" id="ville" placeholder="Quelle est votre ville ..." name="ville" value="<?= $info['ville'] ?>">
             </div>
-            <button type="submit" class="btn btn-primary btn-lg btn-block">Inscription</button>
+            <button type="submit" class="btn btn-dark btn-lg btn-block">Modifier</button>
         </form>
     </div>
 
