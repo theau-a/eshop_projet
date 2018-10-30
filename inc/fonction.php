@@ -53,7 +53,9 @@ function userAdmin()
 }
 
 # Création d'une modal de suppression
-function deleteModal($id, $titre, $contexte)
+
+function deleteModal($id, $name, $contexte)
+
 {
     echo "<div class='modal fade' id='deleteModal" . $id . "' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>";
         echo '<div class="modal-dialog" role="document">';
@@ -65,7 +67,9 @@ function deleteModal($id, $titre, $contexte)
                 echo '</button>';
                 echo '</div>';
                 echo '<div class="modal-body">';
-                echo "Êtes-vous sûr de vouloir supprimer " . $contexte . " " . $titre . " ?";
+
+                echo "Êtes-vous sûr de vouloir supprimer " . $contexte . " " . $name . " ?";
+
                 echo '</div>';
                 echo '<div class="modal-footer">';
                 echo '<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>';
