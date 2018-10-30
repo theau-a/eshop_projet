@@ -2,7 +2,7 @@
 
 session_start();
 
-$dsn = "mysql:host=localhost; dbname=e_shop";
+$dsn = "mysql:host=localhost; dbname=eshop";
 $log = "root";
 $pwd = "";
 $attributes = [
@@ -20,10 +20,6 @@ $page = (!empty($page)) ? $page : "Eshop.com";
 $seo_description = (!empty($seo_description)) ? $seo_description : "";
 # Ici, nous mettons toutes les chances de notre côté pour éviter d'afficher des erreurs. Nous déclarons donc nos variables, mais si $page et $seo sont déclarés avant l'appel de l'init.php, nous faisons en sorte de conserver les valeurs précédemment définies.
 
-
-//> Déclaration de constantesC:\xampp\htdocs\\eshop_projet\eshop-master
-define('RACINE', $_SERVER['DOCUMENT_ROOT'] . '/Back/eshop_project1/eshop_projet/');
-define('URL', "http://localhost/Back/eshop_project1/eshop_projet/");
 
 //> Déclaration de constantes  C:\xampp\htdocs\back\eshop_project\eshop_projet
 define('RACINE', $_SERVER['DOCUMENT_ROOT'] . '/back/eshop_project/eshop_projet/');

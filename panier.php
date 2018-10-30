@@ -5,7 +5,6 @@
     $seo_description = "Un choix très large de produits assemblés en France par des travailleurs non déclarés.";
 
     require_once("inc/header.php");
-
     // debug($_POST);
 
     // traitement pour retirer produit du panier
@@ -73,33 +72,38 @@
             }
         }
 
+        if(isset($_POST["modif"])) { // Si mise à jour de la quantité produit
+            $idProd = $_POST['id_produit'];
+            $_SESSION['panier'][$idProd]['quantite'] = $_POST['quantite']; // On modifie la session avec la quantité choisi par le user
+            $msg .= '<div class="alert alert-success">Votre panier à bien était mis à jour</div>';
+        }
         if(empty($msg)) { // tout est ok
 
             $id_membre = $_SESSION['user']['id_membre'];
             $montant = prixTotal();
     
             $resultat = $pdo -> exec("INSERT INTO commande  (id_membre, montant, date_enregistrement, etat) VALUES ($id_membre, $montant, NOW(), 'en cours de traitement')");
-    
+            
             $id_commande = $pdo -> lastInsertID(); // nous retourne l'id du dernier enregistrement
-    
+            
             // enregistrer dans la table detail_commande les details pour chaque produit commandé
             foreach ($_SESSION['panier'] as $key => $value) {
                 extract($valeur);
-    
+                
                 $resultat = $pdo -> exec("INSERT INTO detail_commande (id_commande, id_produit, quantite, prix) VALUES ($id_commande, $key, $quantite, $prix)");
-    
+                
                 $resultat = $pdo -> exec("UPDATE produit SET stock = (stock - $quantite) WHERE id_produit = $key");
             }
-    
+            
             $msg .= '<div class="alert alert-success">Félicitation, votre commande #' . $id_commande . ' est confirmée. Vous allez recevoir un email avec tous les détails et le suivi de votre colis !</div>';
-    
+            
             unset($_SESSION['panier']); //suppression du panier dans la session utilisateur
         }
     }
-
+    
     // debug($_SESSION);
-
-?>
+    
+    ?>
 
     <div class="starter-template">
         <h1><?= $page ?></h1>
@@ -122,6 +126,11 @@
                 </tr>
             </thead>
             <?php foreach($_SESSION['panier'] as $key => $value) : ?>
+            <!-- attribution a la variables les valeurs                 toujours apres le foreach sinon sa plante car il ne connais aps encore la valeur-->
+            <?php
+                $id = $key;
+                $produitquan = $_SESSION['panier'][$id]['quantite'];
+            ?>
                 <tbody>
                     <tr>
                     
@@ -131,7 +140,19 @@
 
                         <td><?= $value['prix'] ?> €</td>
 
-                        <td><?= $value['quantite'] ?></td>
+                        <td>
+                        <!-- modif des quantité -->
+                            <form action="" method="post">
+                                <input type="number" name="id_produit" value="<?= $id ?>" hidden>
+                                <select class="form-control" name="quantite">
+                                    <option selected disabled>Quantité ...</option>
+                                    <?php for($i=1; $i <= $produit['stock']; $i++) : ?>
+                                        <option <?php if ($produitquan == $i) { echo 'selected'; } ?> > <?=$i?></option>
+                                    <?php endfor; ?>
+                                </select>
+                                <button type="submit" class="btn btn-dark btn-sm mt-3" name="modif">Mettre à jour le panier</button>
+                            </form>
+                        </td>
 
                         <td><?= $value['quantite']*$value['prix'] ?> €</td>
                         
@@ -140,8 +161,15 @@
                 </tbody>
             <?php endforeach; ?>
             <tr>
-                <th colspan="5">Montant total</th>
-                <td><?= number_format(prixTotal(), 2, ',', '.') # la fonction number_format() nous permet de retourner un montant formaté à notre convenance. Elle accepte 1 à 4 paramètres : le nombre visé + définition du nombre de décimales + le séparateur du point décimal + déparateur des milliers ?> €</td> 
+                <th colspan="4">Montant total</th>
+                <td colspan="4">
+                    <p><?= number_format(prixTotal(), 2, ',', '.')?> € TTC</p>
+                    <p><?php 
+                        $tva = 19.6/100;
+                        $ht = prixTotal()/(1 + $tva);
+                        echo number_format($ht, 2, ',','.');                
+                    ?>€ HT</p>
+                </td> 
             </tr>
             <tr>
                 <td><a href="?a=truncate"><em>vider le panier</em></a></td>
