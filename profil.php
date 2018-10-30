@@ -1,9 +1,10 @@
     <?php
 
-    $page = "Mon profil";
-    $seo_description = "Regardez votre profil qui est sublime, magnifique, vous êtes une star !";
+$page = "Mon profil";
+$seo_description = "Regardez votre profil qui est sublime, magnifique, vous êtes une star !";
 
-    require_once("inc/header.php");
+require_once("inc/header.php");
+// debug($_SESSION);
         # Règles SEO
         if ($_POST) {
             if(!empty($_FILES['changePhoto']['name']))
@@ -15,7 +16,7 @@
                 $photo = str_replace(array('é','è','à','ç','ù'), 'x', $photo);
 
                 // Enregistrons le chemin de notre fichier
-                $chemin_photo = RACINE . '/assets/uploads/user/' . $photo;
+                $chemin_photo = RACINE . 'assets/uploads/user/' . $photo;
 
                 $taille_max = 2*1048576; # On définit ici la taille maximale autorisée (2Mo)
 
@@ -36,23 +37,18 @@
                 }
 
             }
-            elseif(isset($_POST['photo_actuelle']))
-            {
-                $photo = $_POST['photo_actuelle'];
-            }
             else 
             {
                 $photo = "default.png";
             }
-
-        }
-        
-        
+            
+            
             // inserer la photo dans la base de données
-            if ($msg) {
-                $result = $pdo->prepare("UPDATE membre SET photo=:photo");
+            if (empty($msg)) {
+                $result = $pdo->prepare("UPDATE membre SET photo=:photo WHERE id_membre = :id");
                 $result->bindValue(':photo', $photo, PDO::PARAM_STR);
-
+                $result->bindValue(":id", $_SESSION['user']['id_membre'], PDO::PARAM_INT);
+                
                 if($result->execute()) # Si j'enregistre bien en BDD
                 {
                     if(!empty($_FILES['changePhoto']['name']))
@@ -60,18 +56,39 @@
                         copy($_FILES['changePhoto']['tmp_name'], $chemin_photo);
                     }
                     
-                    if(!empty($_POST['id_membre']))
+                    if(!empty($_POST['change_photo']))
                     {
-                        header("location:index.php?m=update");
+                        $_SESSION['user']['photo'] = $photo;
+                        header("location:profil.php?m=update");
                     }
                     
-                    $msg .= "<div class='alert alert-success'>Le produit est bien enregistré !</div>";
                 }
-
+                
             }
+            // reciperation de la photo
+        //     $result = $pdo->query("SELECT * FROM membre");
+        //     $membres = $result->fetchAll();
 
+        //     foreach($membres as $membre)
+        // {
+    
+        //     foreach ($membre as $key => $value) 
+        //     {
+        //         if($key == "photo")
+        //         {
+        //             $photo_modif =  URL . "/assets/uploads/user/" . $value ;
+        //         }
+        //         else 
+        //         {
+        //             $photo_modif =  "default.png" ;  
+        //         }
+                
+        //     }
+            // debug($recup);
+            
+        //}
+    }
         
-
         if(!userConnect())
         {
             header("location:connexion.php");
@@ -130,14 +147,14 @@
                 
                 if($delete_result->execute())
                 {
-                    $chemin_photo = RACINE . 'assets/uploads/img/' . $membre['photo'];
+                    $chemin_photo = RACINE . 'assets/uploads/img/' . $photo['photo'];
                     
-                    if(file_exists($chemin_photo) && $membre['photo'] != "default.png") # la fonction fil_exists() me permet de vérifier si le fichier existe bel et bien
+                    if(file_exists($chemin_photo) && $photo['photo'] != "default.png") # la fonction fil_exists() me permet de vérifier si le fichier existe bel et bien
                     {
                         unlink($chemin_photo); # la fonction unlink() me permet de supprimer un fichier
                     }
                     
-                    header("location:connexion.php?m=success");
+                    header("location:profil.php?m=success");
                     unset($_SESSION['user']);
                 }
                 else
@@ -152,7 +169,11 @@
             }
         }
         
-        debug($_FILES);
+        // debug($_FILES);
+        // debug($_POST);
+        
+        // debug($_SESSION);
+
 
         // $choosePhoto = choosePhoto();
         ?>
@@ -160,7 +181,14 @@
         <div class="starter-template">
             <h1><?= $page ?></h1>
             <div class="card">
-                <img class="card-img-top img-thumbnail rounded mx-auto d-block" src="<?= URL.$chemin_photo ?>" alt="Card image cap" style="width:25%;">
+            <?php 
+                if ($_SESSION['user']['photo']) {
+                    echo "<img class='card-img-top img-thumbnail rounded mx-auto d-block' src='".URL."assets/uploads/user/".$_SESSION['user']['photo']."' alt='Card image cap' style='width:25%;'>";
+                }else {
+                    echo "<img class='card-img-top img-thumbnail rounded mx-auto d-block' src='".URL."assets/uploads/user/default.png' alt='Card image cap' style='width:25%;'>";
+                    
+                }
+            ?>
                 <div class="card-body">
                     <h5 class="card-title">Bonjour <?= $info['pseudo'] ?></h5>
                     <p class="card-text">Nous sommes râvi de vous revoir sur notre plateforme.</p>
