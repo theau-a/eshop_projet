@@ -154,7 +154,7 @@
             
         //debug($membre);
         
-        $contenu .= "<td><a href='modif_user.php?id=" . $membre['id_membre'] . "'><i class='fas fa-pen'></i></a></td>";
+        $contenu .= "<td><a href='modif_utilisateur.php?id=" . $membre['id_membre'] . "'><i class='fas fa-pen'></i></a></td>";
         
         $contenu .= "<td><a data-toggle='modal' data-target='#deleteModal" . $membre['id_membre'] . "'><i class='fas fa-trash-alt'></i></a></td>";
        
@@ -175,55 +175,7 @@
     
            <?= $msg ?>
         <?= $contenu ?>
-    <div class="starter-template">
-    <h1><?= $page ?></h1>
-        <form action="" method="post">
-            <small class="form-text text-muted">Vos données ne seront revendues à des services tiers.</small>
-            <?= $msg ?>
-            <div class="form-group">
-                <label for="pseudo">Pseudo</label>
-                <input type="text" class="form-control" id="pseudo" placeholder="Choisissez votre pseudo ..." name="pseudo" required value="<?= $info['pseudo'] ?>">
-                
-            </div>
-            <div class="form-group">
-                <label for="password">Mot de passe</label>
-                <input type="password" class="form-control" id="password" placeholder="Choisissez votre mot de passe ..." name="password" required>
-            </div>
-            <div class="form-group">
-                <label for="prenom">Prénom</label>
-                <input type="text" class="form-control" id="prenom" placeholder="Quel est votre prénom ..." name="prenom" value="<?= $info['prenom']?>">
-            </div>
-            <div class="form-group">
-                <label for="nom">Nom</label>
-                <input type="text" class="form-control" id="nom" placeholder="Quel est votre nom ..." name="nom" value="<?= $info['nom'] ?>">
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="Entrez votre email ..." name="email" value="<?= $info['email']?>">
-            </div>
-            <div class="form-group">
-                <label for="civilite">Civilité</label>
-                <select class="form-control" id="civilite" name="civilite">
-                    <option value="f" <?php if($info['civilite'] == 'f'){echo 'selected';} ?> >Femme</option>
-                    <option value="m" <?php if ($info['civilite'] == 'm') {echo 'selected';} ?> >Homme</option>
-                    <option value="o" <?php if ($info['civilite'] == 'o') {echo 'selected';} ?> >Je ne souhaite pas le préciser</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="adresse">Adresse</label>
-                <input type="text" class="form-control" id="adresse" placeholder="Quelle est votre adresse ..." name="adresse" value="<?= $info['adresse'] ?>">
-            </div>
-            <div class="form-group">
-                <label for="code_postal">Code postal</label>
-                <input type="text" class="form-control" id="code_postal" placeholder="Quel est votre code postal ..." name="code_postal" value="<?= $info['code_postal'] ?>">
-            </div>
-            <div class="form-group">
-                <label for="ville">Ville</label>
-                <input type="text" class="form-control" id="ville" placeholder="Quelle est votre ville ..." name="ville" value="<?= $info['ville'] ?>">
-            </div>
-            <button type="submit" class="btn btn-primary btn-lg btn-block">modifier user</button>
-        </form>
-    </div>
+    
 
     
 
