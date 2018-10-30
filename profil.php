@@ -188,18 +188,19 @@ require_once("inc/header.php");
                     echo "<img class='card-img-top img-thumbnail rounded mx-auto d-block' src='".URL."assets/uploads/user/default.png' alt='Card image cap' style='width:25%;'>";
                     
                 }
-            ?>
+                ?>
+                <?= $msg ?>
                 <div class="card-body">
+                <form method="POST" class="form-group validation" enctype="multipart/form-data">
                     <h5 class="card-title">Bonjour <?= $info['pseudo'] ?></h5>
                     <p class="card-text">Nous sommes râvi de vous revoir sur notre plateforme.</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                <form method="POST" class="form-group" enctype="multipart/form-data">
                     <label for="changePhoto">Photo du produit</label>
                     <input type="file" class="form-control-file" id="changePhoto" name="changePhoto">
 
-                <input type='submit' name="change_photo" class='btn btn-danger' value='changer la photo'>   
+                    <input type='submit' name="change_photo" class='btn btn-danger' value='changer la photo'>   
                 </form>
+                </div>
+                <ul class="list-group list-group-flush">
                     <li class="list-group-item">Prénom: <?= $info['prenom'] ?></li>
                     <li class="list-group-item">Nom: <?= $info['nom'] ?></li>
                     <li class="list-group-item">Email: <?= $info['email'] ?></li>
@@ -219,6 +220,5 @@ require_once("inc/header.php");
             </div>
         </div>
         
-        <?= $msg ?>
 
     <?php require_once("inc/footer.php"); ?>

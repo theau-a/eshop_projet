@@ -49,7 +49,7 @@
         
         $contenu .= "<td><a href='#?id=" . $commande['id_commande'] . "'><i class='fas fa-pen'></i></a></td>";
         
-        $contenu .= "<td><a data-toggle='modal' data-target='#deleteModal" . $commande['id_commande'] . "'><i class='fas fa-trash-alt'></i></a></td>";
+        $contenu .= "<td><a data-toggle='modal' data-target='#deleteModal" . $commande['id_commande'] . "'><i class='fas fa-eye'></i></a></td>";
        
         
         
@@ -90,19 +90,14 @@
         $contenu .= "<tr>";
         foreach ($detail as $key => $value) 
         {
-            if($key != "mdp")
-            {
-                // je sais pas
-                $contenu .= "<td>" . $value . "</td>";
-            }
-            
+                $contenu .= "<td>" . $value . "</td>";            
         }
             
         //debug($membre);
         
         $contenu .= "<td><a href='#?id=" . $detail['id_detail_commande'] . "'><i class='fas fa-pen'></i></a></td>";
         
-        $contenu .= "<td><a data-toggle='modal' data-target='#deleteModal" . $detail['id_detail_commande'] . "'><i class='fas fa-eye-alt'></i></a></td>";
+        $contenu .= "<td><a data-toggle='modal' data-target='#deleteModal" . $detail['id_detail_commande'] . "'><i class='fas fa-eye'></i></a></td>";
        
         
         
