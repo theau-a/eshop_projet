@@ -118,8 +118,12 @@
     for($i= 0; $i < $result->columnCount(); $i++)
     {
         $colonne = $result->getColumnMeta($i);
+
         
         if($colonne['name'] == "mdp")//Si le nom de la key es = a mdp alors tu continue sinon elle s'affiche
+
+        if($colonne["name"] == "mdp")
+
         {
             continue;
         }
@@ -128,6 +132,7 @@
             $contenu .= "<th scope='col'>" . ucfirst(str_replace('_', ' ', $colonne['name'])) . "</th>";
         }
         
+    
     }
     
     $contenu .= "<th colspan='2'>Actions</th>";
