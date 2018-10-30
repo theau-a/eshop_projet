@@ -141,15 +141,15 @@
             </div>
             <div class="form-group">
                 <label for="adresse">Adresse</label>
-                <input type="text" class="form-control" id="adresse" placeholder="Quelle est votre adresse ..." name="adresse" value="<?= $info['adresse'] ?>">
+                <input type="text" class="form-control" id="adresse" placeholder="Quelle est votre adresse ..." name="adresse" value="<?= $info['adresse'] ?>" required>
             </div>
             <div class="form-group">
                 <label for="code_postal">Code postal</label>
-                <input type="text" class="form-control" id="code_postal" placeholder="Quel est votre code postal ..." name="code_postal" value="<?= $info['code_postal'] ?>">
+                <input type="text" class="form-control" id="code_postal" placeholder="Quel est votre code postal ..." name="code_postal" value="<?= $info['code_postal'] ?>" required>
             </div>
             <div class="form-group">
                 <label for="ville">Ville</label>
-                <input type="text" class="form-control" id="ville" placeholder="Quelle est votre ville ..." name="ville" value="<?= $info['ville'] ?>">
+                <input type="text" class="form-control" id="ville" placeholder="Quelle est votre ville ..." name="ville" value="<?= $info['ville'] required?>">
             </div>
             <button type="submit" class="btn btn-dark btn-lg btn-block">Modifier</button>
         </form>

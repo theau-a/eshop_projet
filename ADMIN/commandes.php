@@ -59,6 +59,59 @@
     
     $contenu .= "</tbody></table>";
     $contenu .= "</div>";
+
+    $result = $pdo->query('SELECT * FROM `detail_commande`');
+    $details = $result->fetchAll();
+    
+    // debug($membres);
+    
+    $contenu .= "<div class='table-responsive'>";
+    $contenu .= "<table class='table table-striped table-sm'>";
+    $contenu .= "<thead class='thead-dark'><tr>";
+    
+    for($i= 0; $i < $result->columnCount(); $i++)
+    {
+        $colonne = $result->getColumnMeta($i);
+
+        
+        
+        
+            $contenu .= "<th scope='col'>" . ucfirst(str_replace('_', ' ', $colonne['name'])) . "</th>";
+
+    
+    }
+    
+    $contenu .= "<th colspan='2'>Actions</th>";
+    $contenu .= "</tr></thead><tbody>";
+    
+    
+    foreach($details as $detail)
+    {  
+        $contenu .= "<tr>";
+        foreach ($detail as $key => $value) 
+        {
+            if($key != "mdp")
+            {
+                // je sais pas
+                $contenu .= "<td>" . $value . "</td>";
+            }
+            
+        }
+            
+        //debug($membre);
+        
+        $contenu .= "<td><a href='#?id=" . $detail['id_detail_commande'] . "'><i class='fas fa-pen'></i></a></td>";
+        
+        $contenu .= "<td><a data-toggle='modal' data-target='#deleteModal" . $detail['id_detail_commande'] . "'><i class='fas fa-eye-alt'></i></a></td>";
+       
+        
+        
+        # J'appelle ma modal de supression (fonction créée dans fonction.php)
+        $contenu .= "</tr>";
+    }
+    
+    $contenu .= "</tbody></table>";
+    $contenu .= "</div>";
 ?>
 
     <?= $msg ?>

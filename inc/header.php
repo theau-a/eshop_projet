@@ -27,9 +27,9 @@
     <link rel="stylesheet" href="css/style.css">
 
 </head>
-<body>
+<body class="bg-secondary">
 
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-md navbar-warning bg-warning fixed-top">
       <a class="navbar-brand" href="index.php">Eshop.com</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -66,4 +66,4 @@
       </div>
     </nav>
 
-    <main role="main" class="container">
+    <main role="main" class="container ">
