@@ -1,7 +1,7 @@
 <?php
 
     require_once("../inc/init.php");
-    require_once(RACINE . "/inc/fonction.php");
+    require_once(RACINE . "inc/fonction.php");
 
     if (!userAdmin()) {
         header("location:" . URL);
