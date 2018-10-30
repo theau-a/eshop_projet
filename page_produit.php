@@ -35,7 +35,7 @@
 
     <div class="card text-center">
         <div class="card-header">
-            <img src="/assets/uploads/admin/<?=$produit['photo']?>" alt="<?= $produit['titre'] ?>" class="card-img-top img-fluid" style='width:50%;'>
+            <img src="assets/uploads/admin/<?=$produit['photo']?>" alt="<?= $produit['titre'] ?>" class="card-img-top img-fluid" style='width:50%;'>
         </div>
         <div class="card-body">
             <h5 class="card-title"><?= $produit['titre'] ?></h5>
